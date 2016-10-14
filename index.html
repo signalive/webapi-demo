@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Siramatik POC</title>
+    <style>
+        body {
+            background: orange;
+        }
+    </style>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        <input type="radio" name="channel" value="slideshow"> Slideshow<br>
+        <input type="radio" name="channel" value="hdmi"> HDMI<br>
+        <input type="radio" name="channel" value="datasource"> Datasource
+    </div>
+
+    <textarea rows="4" cols="50">
+        {
+            "element": "person",
+            "innerHTML": "Ahmet Hamdi Tanpinar",
+            "color": "red",
+            "backgroundColor": "yellow"
+        }
+    </textarea>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            $('input').change(function(event) {
+                $.post('/updateDevice', {channelName: event.target.value})
+                    .then(_ => {
+                        console.log('updateDevice OK');
+                    });
+            });
+
+            $('textarea').blur(function(event) {
+                $.post('/updateDatasource', {jsonData: event.target.value})
+                    .then(_ => {
+                        console.log('updateDatasource OK');
+                    });
+            });
+        });
+    </script>
+</body>
+</html>
